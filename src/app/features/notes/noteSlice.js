@@ -4,16 +4,23 @@ import API from "@/api/axios.js";
 
 const noteAdapter = createEntityAdapter({
 	selectId: note => note._id,
-	sortComparer: (a,b) => a.position - b.position
+	sortComparer: (a,b) => {
+		if (a.pinned !==b.pinned){
+			return a.pinned ? -1 : 1;
+		}
+		return b.updatedAt.localeCompare(a.updatedAt);
+	}
 });
 
-const fetchNotes = createAsyncThunk('notes/fetchNotes', (_, thunkAPI) => asyncThunkWrapper(() => API.get('/notes'), thunkAPI));
+const fetchNotes = createAsyncThunk('notes/fetchNotes', ({ page }, thunkAPI) => asyncThunkWrapper(() => API.get(`/notes?page=${page}`), thunkAPI));
 
-const createNote = createAsyncThunk('notes/createNote', ({title, content, pinned }, thunkAPI) => asyncThunkWrapper(() => API.post('/notes', { title, content, pinned }), thunkAPI));
+const createNote = createAsyncThunk('notes/createNote', ({title, content }, thunkAPI) => asyncThunkWrapper(() => API.post('/notes', { title, content }), thunkAPI));
 
-const updateNote = createAsyncThunk('notes/updateNote', ({ id, title, content, pinned }, thunkAPI) => asyncThunkWrapper(() => API.patch(`/notes/${id}`, { title, content, pinned }), thunkAPI));
+const updateNote = createAsyncThunk('notes/updateNote', ({ id, title, content }, thunkAPI) => asyncThunkWrapper(() => API.patch(`/notes/${id}`, { title, content }), thunkAPI));
 
 const deleteNote = createAsyncThunk('notes/deleteNote', (id, thunkAPI) => asyncThunkWrapper(() => API.delete(`/notes/${id}`), thunkAPI));
+
+const updatePin = createAsyncThunk('notes/updatePin', ({id, status }, thunkAPI) => asyncThunkWrapper(() => API.patch(`/notes/${id}/update-pin`, { status }), thunkAPI));
 
 const noteSlice = createSlice({
 	name: "notes",
@@ -35,8 +42,9 @@ const noteSlice = createSlice({
 
 			state.loading = false;
 			state.error = null;
-			const { docs, rest } = action.payload.data;
-			noteAdapter.setAll(state, docs);
+			const { docs, ...rest } = action.payload.data;
+			// noteAdapter.setAll(state, docs);
+			noteAdapter.upsertMany(state, docs);
 			state.paginate = { ...rest };
 		})
 		.addCase(fetchNotes.rejected, (state, action) => {
@@ -56,11 +64,14 @@ const noteSlice = createSlice({
 			
 			const id = action.payload.data._id;
 			noteAdapter.removeOne(state, id);
+		})
+		.addCase(updatePin.fulfilled, (state, action) => {
+			noteAdapter.upsertOne(state, action.payload.data);
 		});
 	}
 });
 
-export { fetchNotes, createNote, updateNote, deleteNote };
+export { fetchNotes, createNote, updateNote, deleteNote, updatePin };
 export const { selectAll: selectAllNotes, selectById: selectNoteByID, selectIds: selectNoteIDs } = noteAdapter.getSelectors(state => state.notes);
 
 export default noteSlice.reducer;

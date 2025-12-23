@@ -8,19 +8,23 @@ import { NoteColumn, AddNote } from "@/components/notes/index.js";
 const BoardPage = () => {
 
 	const boardRef = useRef();
-
 	const dispatch = useDispatch();
 	
 	const notes = useSelector(selectAllNotes);
-	
-	const loading = useSelector(state => state.notes.loading);
+	const { loading, paginate } = useSelector(state => state.notes);
 
 	const [adding, setAdding] = useState(false);
+	const [nextPage, setNextPage] = useState(1);
 
 	useEffect(() => {
 
-		dispatch(fetchNotes());
-	}, []);
+		dispatch(fetchNotes({ page:nextPage }));
+	}, [dispatch,nextPage]);
+
+	useEffect(() => {
+
+		console.log("paginate :", paginate);
+	}, [loading]);
 
 	const onHide = () => {
 
@@ -41,12 +45,17 @@ const BoardPage = () => {
 				<h2 className="mb-4"> Your Board </h2>
 					
 					{notes.map( note => (
-						<Col lg={4} xs={6} >
+						<Col lg={4} sm={6} xs={12} key={note.title}>
 						<NoteColumn note={note} />
 						</Col>
-						
 					))}
 
+			</Row>
+
+			<Row>
+				<Col xs={12} className="text-center mt-3">
+					<Button type="button" disabled={!paginate.hasNextPage} onClick={()=> {setNextPage(paginate.nextPage)}}> Load More.. </Button>
+				</Col>
 			</Row>
 
 			{ loading && <p> Loading your notes..... </p> }

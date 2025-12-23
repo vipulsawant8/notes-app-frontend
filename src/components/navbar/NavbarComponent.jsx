@@ -11,12 +11,11 @@ const NavbarComponent = () => {
   return (
 	<Navbar bg="dark" variant="dark" expand="lg" className="mb-3 shadow-sm">
 		<Container fluid>
-			<NavbarBrand className="fw-semibold"> Live Poll </NavbarBrand>
+			<NavbarBrand className="fw-semibold"> Notes App </NavbarBrand>
 			<Navbar.Toggle aria-controls="main-navbar" />
 				<Navbar.Collapse id="main-navbar">
 					<Nav  className="ms-lg-auto">
 						<Nav.Item> <LogoutButton /> </Nav.Item>
-						{/* <LogoutButton /> */}
 					</Nav>
 				</Navbar.Collapse>
 		</Container>

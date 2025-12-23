@@ -21,19 +21,12 @@ const AddNote = ({ show, onHide, ref }) => {
 			label: "Note Content",
 			type: "textarea",
 			placeholder: "Enter Note Contents"
-		},
-		{
-			name: "pinned",
-			label: "Pin?",
-			type: "checkbox",
-			placeholder: "Enter Note title"
 		}
 	];
 	
 	const noteSchema = yup.object({
 		title: yup.string().required(),
-		content: yup.string(),
-		pinned: yup.boolean()
+		content: yup.string()
 	});
 
 	const handleAddNote = async (data) => {
@@ -65,7 +58,7 @@ const AddNote = ({ show, onHide, ref }) => {
 		<ModalBody style={{ backgroundColor: "#f8f9fa" }}>
 			<Card className="mt-4 p-3" style={{ backgroundColor: "inherit", border: "none" }}>
 				<CardBody>
-					<CustomForm ref={ref} fields={fields} validationSchema={noteSchema} onSubmit={handleAddNote} onError={handleError} defaultValues={{ title: "", content: "", pinned: false }} submitLabel="Add" name="AddNote" />
+					<CustomForm ref={ref} fields={fields} validationSchema={noteSchema} onSubmit={handleAddNote} onError={handleError} defaultValues={{ title: "", content: "" }} submitLabel="Add" name="AddNote" />
 				</CardBody>
 			</Card>
 		</ModalBody>

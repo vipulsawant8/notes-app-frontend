@@ -1,17 +1,15 @@
 # Notes App — Frontend (React + Redux)
 
+[![Vercel Deployment](https://img.shields.io/badge/vercel-deployed-success?logo=vercel&logoColor=white)](https://notes-app-pi-mauve.vercel.app)
+![CI](https://github.com/vipulsawant8/notes-app-frontend/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/github/license/vipulsawant8/notes-app-frontend)
+
+**Live Demo:** https://notes-app-pi-mauve.vercel.app
+
 Frontend for a **Notes application** built with **React**, **Redux Toolkit**, and **Vite**.  
 Implements authentication-aware UI, paginated notes listing, pin/unpin behavior, and clean global state management.
 
-Built to demonstrate **production-style frontend architecture**, reusable components, and real-world API integration for portfolio and interview review.
-
----
-
-## Badges
-
-![CI](https://github.com/vipulsawant8/notes-app-frontend.git/actions/workflows/ci.yml/badge.svg)
-![License](https://img.shields.io/github/license/vipulsawant8/notes-app-frontend)
-![Vercel](https://vercelbadge.vercel.app/api/notes-app-frontend)
+Built to demonstrate **production-style frontend architecture patterns**, reusable components, and real-world API integration for portfolio and interview review.
 
 ---
 
@@ -46,10 +44,10 @@ Built to demonstrate **production-style frontend architecture**, reusable compon
 
 To make evaluation easy, the app can be tested using demo credentials:
 
-- **Email:** demo@notes.app  
-- **Password:** demopassword  
+- **Email:** demo.user@notes.test
+- **Password:** Demo@1234  
 
-All notes shown in the demo are **fictional test data**, inspired by pop‑culture references  
+All notes shown in the demo are **fictional test data**, inspired by pop-culture references  
 (e.g. *Justice League*, fictional characters, or placeholder content).
 
 ⚠️ **No real user data is used.**  
@@ -63,39 +61,3 @@ Create environment files based on the example:
 
 ```bash
 cp .env.example .env
-```
-
-Set the API base URL and other required values as needed.
-
-> Environment files are ignored by Git. Do not commit secrets.
-
----
-
-## Run Locally
-
-```bash
-npm install
-npm run dev
-```
-
----
-
-## Project Structure (High Level)
-
-- `src/app` — Redux store and slices
-- `src/components` — Reusable UI components
-- `src/pages` — Route-level pages
-- `src/layout` — Auth and app layouts
-- `src/api` — Axios configuration
-- `src/router` — Application routing
-
----
-
-## Notes for Reviewers
-
-- Frontend connects to a separate Notes API backend
-- Focus is on clarity, scalability, and predictable state flow
-- Demo data is fictional and resettable
-- Built strictly for learning, portfolio, and interview purposes
-
----

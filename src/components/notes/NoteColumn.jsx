@@ -2,8 +2,13 @@ import { useState, useRef, memo } from "react";
 import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
 
 import { NoteHeader, NoteEditForm, NoteDeleteModal } from '@/components/notes';
+import { updatePin } from "../../app/features/notes/noteSlice";
+import { useDispatch } from "react-redux";
+import { data } from "react-router-dom";
 
 const NoteColumn = ({ note }) => {
+
+	const dispatch = useDispatch();
 
 	const editNoteRef = useRef();
 	
@@ -30,30 +35,47 @@ const NoteColumn = ({ note }) => {
 		setDeleting(false);
 	};
 
+	const onTogglePin = async () => {
+
+		try {
+			await dispatch(updatePin({ id: note._id, status: !note.pinned })).unwrap();
+		} catch (error) {
+			
+			window.alert(error || "Pin action failed");
+		}
+	};
+
 	return (
 		
-		<Card className="kanban-list">
+		<Card className={`note-card ${ note.pinned ? "pinned" : ""}`}>
 			
 			<NoteDeleteModal show={deleting} onHide={onHideDelete} note={note}  />
 
-			<CardBody className="kanban-list-header p-2">
+			<CardBody className="p-2">
 				
-				{ !editing && ( <NoteHeader 
+				{ !editing && ( <>
+					<NoteHeader 
 						title={note.title}
 						pinned={note.pinned} 
 						onEdit={onEdit} 
-						onDelete={onDelete} 
-					/> ) }
+						onDelete={onDelete}
+						onTogglePin={onTogglePin}
+						date={note.updatedAt}
+					/>
+					<p className="note-content">{ note.content }</p>
+				</> ) }
 
 				{ editing && ( 
-					<div className="d-flex align-items-end">
+					<div className="d-flex align-items-end justify-content-between">
 					
-						<NoteEditForm 
+						<div className="flex-grow-1">
+							<NoteEditForm 
 							ref ={editNoteRef}
 							note={note}
 							onSave={onHideEdit}
 						/>
-						<Button variant="link" className="btn-icon x-btn" onClick={onHideEdit} style={{textDecoration: "none"}}> X </Button>
+						</div>
+						<Button variant="link" className="btn-icon x-btn flex-grow-0" onClick={onHideEdit} style={{textDecoration: "none"}}> X </Button>
 					</div> 
 				) }
 			</CardBody>

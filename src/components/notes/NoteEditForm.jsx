@@ -20,24 +20,18 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 			name: "content",
 			label: "Content",
 			type: "textarea"
-		},
-		{
-			name: "pinned",
-			label: "Pin?",
-			type: "checkbox"
 		}
 	];
 
 	const noteSchema = yup.object({
 		title: yup.string().required("Title is required"),
-		content: yup.string(),
-		pinned: yup.boolean()
+		content: yup.string()
 	});
 
 	const handleSave = async (data) => {
 
 		try {
-			await dispatch(updateNote({ id: note._id, title: data.title, content: data.content, pinned: data.pinned })).unwrap();
+			await dispatch(updateNote({ id: note._id, title: data.title, content: data.content })).unwrap();
 			ref.current.resetForm();
 			onSave();
 		} catch (error) {
@@ -51,7 +45,7 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 		console.log("Note Column Errors :", errors);
 	};
 
-	return ( <CustomForm ref={ref} fields={noteFields} validationSchema={noteSchema} onSubmit={handleSave} onError={handleError} defaultValues={{ title: note.title, content: note.content, pinned: note.pinned }} submitLabel="Save" name="EditNote" submitInside={false} />)
+	return ( <CustomForm ref={ref} fields={noteFields} validationSchema={noteSchema} onSubmit={handleSave} onError={handleError} defaultValues={{ title: note.title, content: note.content }} submitLabel="Save" name="EditNote" submitInside={false} />)
 	
 } );
 
