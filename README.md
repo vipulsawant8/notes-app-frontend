@@ -39,7 +39,16 @@ Built to demonstrate **production-style frontend architecture patterns**, reusab
 - ESLint
 
 ---
+## Backend Service
 
+This frontend communicates with a **separately deployed backend API**.
+
+- **Backend Repository:** https://github.com/vipulsawant8/notes-app-backend
+- **Backend Deployment:** Render (Node.js + Express + MongoDB)
+
+The backend handles authentication, authorization, and notes persistence.
+
+---
 ## Demo Account (For Reviewers)
 
 To make evaluation easy, the app can be tested using demo credentials:
@@ -51,7 +60,8 @@ All notes shown in the demo are **fictional test data**, inspired by pop-culture
 (e.g. *Justice League*, fictional characters, or placeholder content).
 
 ⚠️ **No real user data is used.**  
-The dataset exists purely for demonstration and UI/UX review.
+The dataset exists purely for demonstration and UI/UX review and is shared
+between the frontend and backend demo environment.
 
 ---
 
@@ -61,3 +71,6 @@ Create environment files based on the example:
 
 ```bash
 cp .env.example .env
+
+The backend uses its own environment configuration and is deployed separately.
+See the backend repository for backend setup instructions.
