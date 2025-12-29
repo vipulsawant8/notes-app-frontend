@@ -15,9 +15,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setLogoutHandler(() => {
-			dispatch(clearAuth());
-		});
+		setLogoutHandler(() => dispatch(clearAuth()));
 	}, [dispatch]);
 
 	return ( <>

@@ -49,7 +49,7 @@ const LoginPage = () => {
 								ref={formRef}
 								onSubmit={handleLogin}
 								onError={handleError}
-								loading={loading} s/>
+								loading={loading} />
 							<div className="mt-4"> New user? click <Link to={'/register'}> here </Link> to register.</div>
 						</CardBody>
 					</Card>
