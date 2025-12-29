@@ -5,7 +5,6 @@
 ![React](https://img.shields.io/badge/react-19.x-blue)
 ![Redux Toolkit](https://img.shields.io/badge/redux-toolkit-purple)
 ![Vite](https://img.shields.io/badge/vite-build-646CFF)
-![CI](https://github.com/vipulsawant8/notes-app-frontend/actions/workflows/ci.yml/badge.svg)
 
 
 **Live App:** https://notes-app-front-end.vercel.app
