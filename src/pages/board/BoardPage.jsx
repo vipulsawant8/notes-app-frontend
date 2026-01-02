@@ -46,20 +46,20 @@ const BoardPage = () => {
 					
 					{notes.map( note => (
 						<Col lg={4} sm={6} xs={12} key={note.title}>
-						<NoteColumn note={note} />
+							<NoteColumn note={note} />
 						</Col>
 					))}
 
 			</Row>
 
-			<Row>
+			{ loading && <p> Loading your notes..... </p> }
+			{ !loading && notes.length === 0 && <h4> Start adding notes now </h4> }
+			
+			{paginate.hasNextPage &&  <Row>
 				<Col xs={12} className="text-center mt-3">
 					<Button type="button" disabled={!paginate.hasNextPage} onClick={()=> {setNextPage(paginate.nextPage)}}> Load More.. </Button>
 				</Col>
-			</Row>
-
-			{ loading && <p> Loading your notes..... </p> }
-			{ !loading && notes.length === 0 && <h4> Start adding notes now </h4> }
+			</Row>}
 	</>);
 };
 

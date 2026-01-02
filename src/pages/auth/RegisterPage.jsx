@@ -7,7 +7,7 @@ import { registerUser, loginUser } from "@/app/features/auth/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect, useRef } from "react";
-import notify from "../../utils/notify";
+import notify from "@/utils/notify";
 
 const RegisterPage = () => {
 
@@ -18,7 +18,7 @@ const RegisterPage = () => {
 
 	const handleRegister = async (data) => {
 			try {
-				await dispatch(registerUser(data));
+				await dispatch(registerUser(data)).unwrap();
 	
 				notify.success("Registered successfully now logging you in");
 	

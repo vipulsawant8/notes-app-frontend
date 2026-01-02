@@ -2,9 +2,9 @@ import { useState, useRef, memo } from "react";
 import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
 
 import { NoteHeader, NoteEditForm, NoteDeleteModal } from '@/components/notes';
-import { updatePin } from "../../app/features/notes/noteSlice";
+import { updatePin } from "@/app/features/notes/noteSlice";
 import { useDispatch } from "react-redux";
-import { data } from "react-router-dom";
+import notify from "@/utils/notify.js";
 
 const NoteColumn = ({ note }) => {
 
@@ -39,9 +39,12 @@ const NoteColumn = ({ note }) => {
 
 		try {
 			await dispatch(updatePin({ id: note._id, status: !note.pinned })).unwrap();
+			const action = note.pinned ? "unpinned": "pinned";
+			notify.success(`note ${action} successfully`);
 		} catch (error) {
 			
-			window.alert(error || "Pin action failed");
+			const msg = error || "Pin action failed";
+			notify.error(msg);
 		}
 	};
 

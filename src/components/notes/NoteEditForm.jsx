@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { CustomForm } from "@/components/form";
 import { updateNote } from "@/app/features/notes/noteSlice.js";
 
+import notify from "@/utils/notify.js";
+
 const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 
 	const dispatch = useDispatch();
@@ -32,11 +34,13 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 
 		try {
 			await dispatch(updateNote({ id: note._id, title: data.title, content: data.content })).unwrap();
+			notify.success("Note edited succcessfully");
 			ref.current.resetForm();
 			onSave();
 		} catch (error) {
 			
-			window.alert(error || "Update failed. Please try again.");
+			const msg = error || "Update failed. Please try again.";
+			notify.error(msg);
 		}
 	};
 

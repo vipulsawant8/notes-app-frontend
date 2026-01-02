@@ -76,3 +76,11 @@ body{
 .edit-btn{
   color: #0d6efd !important;
 }
+
+.input {
+  border: 1px solid #ccc;
+}
+
+.input.error {
+  border: 1px solid red;
+}

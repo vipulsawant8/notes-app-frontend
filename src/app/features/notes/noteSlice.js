@@ -29,7 +29,12 @@ const noteSlice = createSlice({
 		error: null,
 		paginate: {}
 	}),
-	reducers: {  },
+	reducers: { 
+		clearNotes: (state) => {
+
+			noteAdapter.removeAll(state);
+		}
+	 },
 	extraReducers: builder => {
 		
 		builder
@@ -72,6 +77,7 @@ const noteSlice = createSlice({
 });
 
 export { fetchNotes, createNote, updateNote, deleteNote, updatePin };
+export const { clearNotes } = noteSlice.actions;
 export const { selectAll: selectAllNotes, selectById: selectNoteByID, selectIds: selectNoteIDs } = noteAdapter.getSelectors(state => state.notes);
 
 export default noteSlice.reducer;

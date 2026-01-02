@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { Modal, ModalHeader, ModalTitle, ModalFooter, Button } from "react-bootstrap";
 import { deleteNote } from "@/app/features/notes/noteSlice.js";
 
+import notify from "@/utils/notify.js";
+
 const NoteDeleteModal = ({ show, onHide, note }) => {
 	
 	const dispatch = useDispatch();
@@ -10,9 +12,11 @@ const NoteDeleteModal = ({ show, onHide, note }) => {
 		try {
 				await dispatch(deleteNote(note._id)).unwrap();
 				onHide();
+				notify.success("Note deleted successfully");
 			} catch (error) {
 				
-				window.alert(error || "Delete failed. Please try again.");
+				const msg = error || "Delete failed. Please try again.";
+				notify.error(msg);
 			}	
 	};
 
