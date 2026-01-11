@@ -35,7 +35,7 @@ const AddNote = ({ show, onHide, ref }) => {
 			const result = await dispatch(createNote(data)).unwrap();
 			if (import.meta.env.DEV) console.log('result :', result);
 			
-			notify.success("Note Addedd Successfully");
+			notify.success(`Note titled ${data.title} added`);
 
 			ref.current.resetForm();
 			onHide();

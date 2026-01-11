@@ -14,7 +14,7 @@ const LogoutButton = () => {
 			
 			const logout = await dispatch(logoutUser()).unwrap();
 			await dispatch(clearNotes({}));
-			const msg = "Logged out successfully";
+			const msg = "Logged out";
 			notify.success(msg);
 		} catch (error) {
 			

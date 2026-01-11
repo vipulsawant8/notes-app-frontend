@@ -34,12 +34,12 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 
 		try {
 			await dispatch(updateNote({ id: note._id, title: data.title, content: data.content })).unwrap();
-			notify.success("Note edited succcessfully");
+			notify.success(`Note titled ${data.title} edited`);
 			ref.current.resetForm();
 			onSave();
 		} catch (error) {
 			
-			const msg = error || "Update failed. Please try again.";
+			const msg = error || "Update Note failed. Please try again.";
 			notify.error(msg);
 		}
 	};

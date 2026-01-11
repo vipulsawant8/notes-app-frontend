@@ -40,7 +40,7 @@ const NoteColumn = ({ note }) => {
 		try {
 			await dispatch(updatePin({ id: note._id, status: !note.pinned })).unwrap();
 			const action = note.pinned ? "unpinned": "pinned";
-			notify.success(`note ${action} successfully`);
+			notify.success(`note ${action}`);
 		} catch (error) {
 			
 			const msg = error || "Pin action failed";
