@@ -33,8 +33,9 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 	const handleSave = async (data) => {
 
 		try {
-			await dispatch(updateNote({ id: note._id, title: data.title, content: data.content })).unwrap();
-			notify.success(`Note titled ${data.title} edited`);
+			const result = await dispatch(updateNote({ id: note._id, title: data.title, content: data.content })).unwrap();
+			const msg = result.message || `"${data.title}" was updated`;
+			notify.success(msg);
 			ref.current.resetForm();
 			onSave();
 		} catch (error) {

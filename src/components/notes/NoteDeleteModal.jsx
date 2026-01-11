@@ -10,9 +10,10 @@ const NoteDeleteModal = ({ show, onHide, note }) => {
 
 	const handleDelete = async () => {
 		try {
-				await dispatch(deleteNote(note._id)).unwrap();
+				const result = await dispatch(deleteNote(note._id)).unwrap();
 				onHide();
-				notify.success(`Note titled ${note.title} deleted`);
+				const msg = result.message ||  `"${note.title}" was deleted`;
+				notify.success(msg);
 			} catch (error) {
 				
 				const msg = error || "Delete Note failed. Please try again.";

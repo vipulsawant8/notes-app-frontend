@@ -38,9 +38,10 @@ const NoteColumn = ({ note }) => {
 	const onTogglePin = async () => {
 
 		try {
-			await dispatch(updatePin({ id: note._id, status: !note.pinned })).unwrap();
+			const result = await dispatch(updatePin({ id: note._id, status: !note.pinned })).unwrap();
 			const action = note.pinned ? "unpinned": "pinned";
-			notify.success(`note ${action}`);
+			const msg = result.message || `"${note.title}" was ${action}`; 
+			notify.success(msg);
 		} catch (error) {
 			
 			const msg = error || "Pin action failed";
