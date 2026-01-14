@@ -1,7 +1,7 @@
 import axios from "axios";
 import { triggerLogout } from "@/app/logoutHandler.js";
 import notify from "@/utils/notify";
-import { getDeviceId } from "../../utils/deviceId";
+import { getDeviceId } from "../utils/deviceId.js";
 
 const API = axios.create({
 	
@@ -9,7 +9,7 @@ const API = axios.create({
 	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",
-		Accept: "application/json"
+		"Accept": "application/json"
 	}
 });
 
@@ -76,7 +76,7 @@ API.interceptors.response.use(res => {
 
 		try {
 			
-			await API.get('/auth/refresh-token', {
+			await API.post('/auth/refresh-token', {
 				deviceId: getDeviceId()
 			});
 

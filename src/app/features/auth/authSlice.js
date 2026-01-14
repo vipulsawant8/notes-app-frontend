@@ -1,18 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import asyncThunkWrapper from "@/utils/asyncThunkWrapper.js";
 import API from "@/api/axios.js";
-import { getDeviceId } from "../../../../utils/deviceId";
+import { getDeviceId } from "../../../utils/deviceId.js";
 
-export const getMe = createAsyncThunk('auth/getMe', (_, thunkAPI) => asyncThunkWrapper(() => API.get('/auth/me', { deviceId: getDeviceId() }), thunkAPI));
+const deviceId = getDeviceId();
+
+export const getMe = createAsyncThunk('auth/getMe', (_, thunkAPI) => asyncThunkWrapper(() => API.get('/auth/me'), thunkAPI));
 
 export const registerUser = createAsyncThunk('auth/registerUser', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/register', userData), thunkAPI));
 
-export const loginUser = createAsyncThunk('auth/loginUser', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/login', { ...userData, deviceId: getDeviceId() }), thunkAPI));
+export const loginUser = createAsyncThunk('auth/loginUser', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/login', { ...userData, deviceId }), thunkAPI));
 
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 	try {
 		await API.post('/auth/logout', {
-			deviceId: getDeviceId()
+			deviceId
 		});	
 	} catch (error) {
 		
