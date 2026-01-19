@@ -9,47 +9,38 @@
 
 **Live App:** https://notes-app-front-end.vercel.app
 
-Frontend for the Notes application, built with React, Redux Toolkit, and Vite.
-
+Frontend for the Notes application, built with React, Redux Toolkit, and Vite.  
 This application demonstrates authentication-aware UI, layout-based route protection, and clean state management, integrating with a separately deployed backend API.
 
 ## Architecture Overview
 
 The frontend is designed to stay UI-focused, with security and session handling delegated to the backend.
-
 Key responsibilities:
 
 - Rendering authenticated and public views
-
 - Managing global UI state using Redux Toolkit
-
 - Orchestrating API communication via Axios
-
-- Handling session expiry and forced logout gracefully
-
-Authentication secrets are never stored on the client.
+- Handling session expiry and forced logout gracefully  
+- Authentication secrets are never stored on the client.
 
 ## Authentication & Session Handling
 
-This frontend uses a cookie-based session model provided by the backend.
+This frontend integrates with a **cookie-based authentication with refresh token roation** provided by the backend.
 
-### Key characteristics
+### Key characteristics  
 
-- Tokens are stored in HTTP-only cookies (server-managed)
-
-- Redux stores user identity and auth state only
-
+- Tokens are stored in **HTTP-only cookies** (server-managed)
 - No access or refresh tokens are stored in localStorage or Redux
+- Redux stores only user identity and authentication state
+- A persistent `deviceId` is generated client-side to support secure multi-device sessions
 
 ### Session lifecycle
 
-1. On app load, auth state is restored via /auth/me
-
+1. On application load, authentication state is restored via `/auth/me`
 2. Protected routes are guarded using layout-based access control
-
-3. Axios interceptors automatically retry requests after token refresh
-
-4. If refresh fails, the user is logged out globally
+3. Axios interceptors automatically attempt token refresh on `401` responses from protected endpoints
+4. Failed refresh triggers a **global logout**
+5. Requests are retrired **once** after a successful refresh to prevent loops
 
 ## Routing & Access Control
 
@@ -67,33 +58,21 @@ Routing is layout-driven, not page-driven.
 ## Design decisions
 
 - Public and authenticated routes are structurally separated
-
 - Auth checks live in layouts, not inside pages
-
 - Pages remain focused on rendering and interaction logic
-
 - Route-level lazy loading improves performance
 
 ## Features
 
 - Login / register / logout flow
-
 - Protected routes using layout guards
-
 - Notes CRUD operations
-
 - Pagination support
-
 - Pin / unpin notes
-
 - Notes sorted by:
-
 	1. Pinned notes first
-
 	2. Most recently updated
-
 - Reusable form system
-
 - Centralized toast notifications
 
 ## Demo Account (For Reviewers)
@@ -101,17 +80,13 @@ Routing is layout-driven, not page-driven.
 To simplify evaluation, a demo account is provided:
 
 - **Email:** demo.user@notes.test
-
 - **Password:** Demo@1234
 
 ⚠️ Important
 
 - All notes are fictional
-
 - Demo data uses fictional characters and placeholders
-
 - No real user data is stored or displayed
-
 - Demo environment may reset periodically
 
 Demo credentials are provided only for UI and UX evaluation.
@@ -183,8 +158,9 @@ src
 │   └── router.jsx
 └── utils
     ├── asyncThunkWrapper.js
+    ├── deviceId.js
     ├── notify.js
-    └── reorder.js
+    
 ```
 
 ## Environment Configuration
@@ -203,13 +179,13 @@ No secrets are stored in the frontend.
 
 ## Backend Integration
 
-This frontend communicates with a separately deployed backend API.
+This frontend communicates with a separately deployed backend API.  
 
 - Backend Repository: https://github.com/vipulsawant8/notes-app-backend
-
 - Backend Deployment: Render
-
-- Auth Strategy: Cookie-based sessions with automatic refresh
+- Auth Strategy: Cookie-based authentication with refresh token rotation
+- Session Restoration: `/auth/me`
+- Device Tracking: Client-generated `deviceId`
 
 ## License
 
