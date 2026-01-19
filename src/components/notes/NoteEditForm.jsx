@@ -47,7 +47,7 @@ const NoteEditForm = forwardRef(({ note, onSave }, ref) => {
 
 	const handleError = errors => {
 
-		console.log("Note Column Errors :", errors);
+		if (import.meta.env.DEV) console.log("Note Column Errors :", errors);
 	};
 
 	return ( <CustomForm ref={ref} fields={noteFields} validationSchema={noteSchema} onSubmit={handleSave} onError={handleError} defaultValues={{ title: note.title, content: note.content }} submitLabel="Save" name="EditNote" submitInside={false} />)

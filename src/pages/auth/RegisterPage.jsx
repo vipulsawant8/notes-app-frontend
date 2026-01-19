@@ -37,7 +37,7 @@ const RegisterPage = () => {
 	};
 
 	const handleError = (errors) => {
-		console.log("Register Form errors :", errors);
+		if (import.meta.env.DEV) console.log("Register Form errors :", errors);
 	};
 
 	useEffect(() => {

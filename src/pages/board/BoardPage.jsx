@@ -23,7 +23,7 @@ const BoardPage = () => {
 
 	useEffect(() => {
 
-		console.log("paginate :", paginate);
+		if (import.meta.env.DEV) console.log("paginate :", paginate);
 	}, [loading]);
 
 	const onHide = () => {

@@ -47,7 +47,7 @@ const AddNote = ({ show, onHide, ref }) => {
 	};
 
 	const handleError = errors => {
-		console.log("errors :", errors);
+		if (import.meta.env.DEV) console.log("errors :", errors);
 	};
 
 	return (<Modal show={show} onHide={onHide} centered backdrop="static" keyboard={false}>
