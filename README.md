@@ -25,7 +25,7 @@ Key responsibilities:
 
 ## Authentication & Session Handling
 
-This frontend integrates with a **cookie-based authentication with refresh token roation** provided by the backend.
+This frontend integrates with a **cookie-based authentication with refresh token rotation** provided by the backend.
 
 ### Key characteristics  
 
@@ -40,7 +40,7 @@ This frontend integrates with a **cookie-based authentication with refresh token
 2. Protected routes are guarded using layout-based access control
 3. Axios interceptors automatically attempt token refresh on `401` responses from protected endpoints
 4. Failed refresh triggers a **global logout**
-5. Requests are retrired **once** after a successful refresh to prevent loops
+5. Requests are retried **once** after a successful refresh to prevent loops
 
 ## Routing & Access Control
 

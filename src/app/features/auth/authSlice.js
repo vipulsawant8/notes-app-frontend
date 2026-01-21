@@ -18,7 +18,7 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 		});	
 	} catch (error) {
 		
-		console.warn("Logout API error :", error);
+		if (import.meta.env.DEV) console.warn("Logout API error :", error);
 	}
 	return;
 });

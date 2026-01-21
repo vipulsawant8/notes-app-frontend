@@ -20,7 +20,7 @@ const store = configureStore({
 	middleware: (getDefaultMiddleware) => import.meta.env.DEV ?
 		getDefaultMiddleware().concat(errorMiddleware, logger) :
 		getDefaultMiddleware().concat(errorMiddleware),
-	devTools: import.meta.env.DEV	
+	devTools: import.meta.env.DEV
 });
 
 export default store;
