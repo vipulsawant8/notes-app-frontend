@@ -44,13 +44,13 @@ const LoginPage = () => {
 				<Col xs={12} sm={10} md={6} lg={4}>
 					<Card className="p-3" style={{ backgroundColor: "#FFFFFF", boxShadow: "0 8px 24px rgba(0,0,0,0.08)", borderRadius: "8px" }}>
 						<CardBody>
-							<CardTitle className="text-center h1"> <h1> Login Page </h1> </CardTitle>
+							<CardTitle className="text-center h1"> <h1> Login </h1> </CardTitle>
 							<LoginForm 
 								ref={formRef}
 								onSubmit={handleLogin}
 								onError={handleError}
 								loading={loading} />
-							<div className="mt-4"> New user? click <Link to={'/register'}> here </Link> to register.</div>
+							<div className="mt-4"> New user? click <Link to={'/register-email'}> here </Link> to register.</div>
 						</CardBody>
 					</Card>
 				</Col>

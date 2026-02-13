@@ -9,7 +9,10 @@
 
 **Live App:** https://notes-app-front-end.vercel.app
 
-Frontend for the Notes application, built with React, Redux Toolkit, and Vite.  
+---
+
+Frontend for the Notes application, built with React, Redux Toolkit, and Vite. 
+
 This application demonstrates authentication-aware UI, layout-based route protection, and clean state management, integrating with a separately deployed backend API.
 
 ## Architecture Overview
@@ -27,11 +30,25 @@ Key responsibilities:
 
 This frontend integrates with a **cookie-based authentication with refresh token rotation** provided by the backend.
 
+The client remains UI-focused and does not manage token storage directly.
+
+### Registration Flow
+
+New users complete a multi-step registration process:
+
+1. Submit email to receive a one-time password (OTP)
+2. Verify OTP
+3. Complete account registration
+
+All OTP validation, security checks, and account creation logic are handled exclusively by the backend.
+
 ### Key characteristics  
 
-- Tokens are stored in **HTTP-only cookies** (server-managed)
-- No access or refresh tokens are stored in localStorage or Redux
-- Redux stores only user identity and authentication state
+- Access and refresh tokens are stored in **HTTP-only cookies**
+- No tokens are stored in localStorage, sessionStorage, or Redux
+- Redux stores only:
+    - Authenticated user identity
+    - Authentication status
 - A persistent `deviceId` is generated client-side to support secure multi-device sessions
 
 ### Session lifecycle
@@ -47,7 +64,7 @@ This frontend integrates with a **cookie-based authentication with refresh token
 Routing is layout-driven, not page-driven.
 
 ```bash
-/login, /register
+/login, /register, /register-email, /verify-email, /create-account
  └── PublicLayout
 
 /board
@@ -79,7 +96,7 @@ Routing is layout-driven, not page-driven.
 
 To simplify evaluation, a demo account is provided:
 
-- **Email:** demo.user@notes.test
+- **Email:** demo.user1.notes-app.evaluator356@simplelogin.com
 - **Password:** Demo@1234
 
 ⚠️ Important
@@ -113,10 +130,13 @@ src
 ├── components
 │   ├── auth
 │   │   ├── AuthInitializer.jsx
+│   │   ├── CreateUserAccountForm.jsx
 │   │   ├── index.js
 │   │   ├── LoginForm.jsx
 │   │   ├── LogoutButton.jsx
-│   │   └── RegisterForm.jsx
+│   │   ├── RegisterEmailForm.jsx
+│   │   └── VerifyEmailForm.jsx
+│   │
 │   ├── common
 │   │   └── PageLoader.jsx
 │   ├── form
@@ -149,8 +169,10 @@ src
 │   └── errorMiddleware.js
 ├── pages
 │   ├── auth
+│   │   ├── CreateUserAccounPage.jsx
 │   │   ├── LoginPage.jsx
-│   │   └── RegisterPage.jsx
+│   │   ├── RegisterEmailPage.jsx
+│   │   ├── VerifyEmailPage.jsx
 │   ├── board
 │   │   └── BoardPage.jsx
 │   └── NotFound.jsx
@@ -158,6 +180,7 @@ src
 │   └── router.jsx
 └── utils
     ├── asyncThunkWrapper.js
+    ├── BackButton.jsx
     ├── deviceId.js
     ├── notify.js
     
