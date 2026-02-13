@@ -96,7 +96,7 @@ Routing is layout-driven, not page-driven.
 
 To simplify evaluation, a demo account is provided:
 
-- **Email:** demo.user1.notes-app.evaluator356@simplelogin.com
+- **Email:** notes-app-1.monetary836@aleeas.com
 - **Password:** Demo@1234
 
 ⚠️ Important
