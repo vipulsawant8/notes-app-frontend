@@ -24,7 +24,7 @@ const LogoutButton = () => {
 	};
 
   return (
-	<Button variant="outline-danger" size="sm" onClick={handleLogout}> Logout </Button>
+	<Button variant="outline-danger" className="align-self-start" onClick={handleLogout}> Logout </Button>
   );
 };
 

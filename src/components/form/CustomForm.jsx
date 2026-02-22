@@ -21,6 +21,7 @@ const CustomForm = forwardRef(
 		ref
 	)  => {
 
+	if (import.meta.env.DEV) console.log("defaultValues :", defaultValues);
 	const {
 		register,
 		handleSubmit,
@@ -58,7 +59,7 @@ const CustomForm = forwardRef(
 		textarea: InputTextarea,
 		select: InputSelect,
 		file: InputFile,
-		checkbox: InputCheckbox	
+		checkbox: InputCheckbox
 	};
 
 		return (

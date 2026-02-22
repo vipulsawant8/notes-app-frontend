@@ -10,7 +10,6 @@ import { loginUser } from "@/app/features/auth/authSlice.js";
 import notify from "@/utils/notify.js";
 
 const LoginPage = () => {
-
 	const formRef = useRef();
 	const { loading, isAuthenticated } = useSelector((state) => state.auth);
 	
@@ -50,7 +49,7 @@ const LoginPage = () => {
 								onSubmit={handleLogin}
 								onError={handleError}
 								loading={loading} />
-							<div className="mt-4"> New user? click <Link to={'/register-email'}> here </Link> to register.</div>
+							<div className="mt-4"> New user? click <Link to={'/create-account'}> here </Link> to register.</div>
 						</CardBody>
 					</Card>
 				</Col>
