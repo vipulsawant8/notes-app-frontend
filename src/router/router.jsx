@@ -12,6 +12,7 @@ const LoginPage = lazy(() => import('@/pages/auth/LoginPage.jsx'));
 const RegisterEmailPage = lazy(() => import('@/pages/auth/RegisterEmailPage.jsx'));
 const VerifyEmailPage = lazy(() => import('@/pages/auth/VerifyEmailPage.jsx'));
 const CreateUserAccountPage = lazy(() => import('@/pages/auth/CreateUserAccountPage.jsx'));
+const PasswordChangePage = lazy(() => import('@/pages/auth/PasswordChangePage.jsx'));
 
 const BoardPage = lazy(() => import('@/pages/board/BoardPage.jsx'));
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
 					{
 						path: 'board',
 						element: <Suspense fallback={<PageLoader />}> <BoardPage /> </Suspense>
+					},
+					{
+						path: 'password-change',
+						element: <Suspense fallback={<PageLoader />}> <PasswordChangePage /> </Suspense>
 					}
 				]
 			},

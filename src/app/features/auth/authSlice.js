@@ -35,6 +35,8 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 	return;
 });
 
+export const passwordChange = createAsyncThunk('auth/passwordChange', (userData, thunkAPI) =>  asyncThunkWrapper(() => API.post('/auth/password-change', { ...userData, deviceId }), thunkAPI));
+
 const authSlice = createSlice({
 
 	name: "auth",
@@ -158,6 +160,21 @@ const authSlice = createSlice({
 
 			state.user = null;
 			state.error = null;
+		})
+		.addCase(passwordChange.pending, (state, action) => {
+
+			// state.loading = true;
+			state.error = null;
+		})
+		.addCase(passwordChange.fulfilled, (state, action) => {
+
+			// state.loading = false;
+			state.error = null;
+		})
+		.addCase(passwordChange.rejected, (state, action) => {
+
+			// state.loading = false;
+			state.error = action.payload.message;
 		})
 	}
 });

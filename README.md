@@ -56,8 +56,7 @@ All OTP validation, security checks, and account creation logic are handled excl
 1. On application load, authentication state is restored via `/auth/me`
 2. Protected routes are guarded using layout-based access control
 3. Axios interceptors automatically attempt token refresh on `401` responses from protected endpoints
-4. Failed refresh triggers a **global logout**
-5. Requests are retried **once** after a successful refresh to prevent loops
+4. Requests are retried **once** after a successful refresh to prevent loops
 
 ## Routing & Access Control
 

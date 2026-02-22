@@ -1,4 +1,5 @@
-import { Navbar, Container, Nav, NavbarBrand, NavbarToggle, NavbarCollapse, NavDropdown, DropdownItem } from "react-bootstrap"
+import { Navbar, Container, Nav, NavbarBrand, NavbarToggle, NavbarCollapse, NavDropdown, DropdownItem } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LogoutButton } from "@/components/auth";
 
@@ -14,8 +15,24 @@ const NavbarComponent = () => {
 			<NavbarBrand className="fw-semibold"> Notes App </NavbarBrand>
 			<Navbar.Toggle aria-controls="main-navbar" />
 				<Navbar.Collapse id="main-navbar">
-					<Nav  className="ms-lg-auto">
-						<Nav.Item> <LogoutButton /> </Nav.Item>
+					
+					<Nav className="ms-lg-auto">
+						<NavDropdown title="Account" align="end">
+
+							<DropdownItem
+								as={Link}
+								to="/password-change"
+							>
+								Change Password
+							</DropdownItem>
+
+							<NavDropdown.Divider />
+
+							<DropdownItem as="div">
+								<LogoutButton />
+							</DropdownItem>
+
+						</NavDropdown>
 					</Nav>
 				</Navbar.Collapse>
 		</Container>

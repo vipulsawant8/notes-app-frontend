@@ -3,4 +3,5 @@ export { default as CreateUserAccountForm } from "./CreateUserAccountForm.jsx";
 export { default as AuthInitializer } from "./AuthInitializer.jsx";
 export { default as LogoutButton } from "./LogoutButton.jsx";
 export { default as RegisterEmailForm } from "./RegisterEmailForm.jsx";
+export { default as PasswordChangeForm } from "./PasswordChangeForm.jsx";
 export { default as VerifyEmailForm } from "./VerifyEmailForm.jsx";
