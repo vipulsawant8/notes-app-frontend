@@ -1,219 +1,87 @@
-# Notes App — Frontend (React + Redux)
+# Notes App Frontend
 
-[![Vercel](https://img.shields.io/badge/vercel-deployed-success?logo=vercel&logoColor=white)](https://notes-app-front-end.vercel.app)
-![License](https://img.shields.io/github/license/vipulsawant8/notes-app-frontend)
-![React](https://img.shields.io/badge/react-19.x-blue)
-![Redux Toolkit](https://img.shields.io/badge/redux-toolkit-purple)
-![Vite](https://img.shields.io/badge/vite-build-646CFF)
+Frontend client for the Notes Management Application built with React,
+Redux Toolkit, Axios, and Vite.
+
+Handles authentication, note management, and session handling via
+HTTP-only cookies.
 
 
-**Live App:** https://notes-app-front-end.vercel.app
 
----
+# Core Features
 
-Frontend for the Notes application, built with React, Redux Toolkit, and Vite. 
+-   React SPA (Vite)
+-   Redux Toolkit state management
+-   Axios API layer with credentials enabled
+-   Cookie-based authentication (no token storage in JS)
+-   Modular component structure
+-   Toast notifications
+-   Layout-based routing
 
-This application demonstrates authentication-aware UI, layout-based route protection, and clean state management, integrating with a separately deployed backend API.
 
-## Architecture Overview
 
-The frontend is designed to stay UI-focused, with security and session handling delegated to the backend.
-Key responsibilities:
+# Project Structure
 
-- Rendering authenticated and public views
-- Managing global UI state using Redux Toolkit
-- Orchestrating API communication via Axios
-- Handling session expiry and forced logout gracefully  
-- Authentication secrets are never stored on the client.
+    src/
+    ├── api/
+    ├── app/
+    ├── components/
+    ├── config/
+    ├── layout/
+    ├── middleware/
+    ├── pages/
+    ├── router/
+    ├── utils/
+    ├── App.jsx
+    └── main.jsx
 
-## Authentication & Session Handling
 
-This frontend integrates with a **cookie-based authentication with refresh token rotation** provided by the backend.
 
-The client remains UI-focused and does not manage token storage directly.
+# Authentication Flow
 
-### Registration Flow
+-   Session hydration via AuthInitializer
+-   Login with email, password, deviceId
+-   Logout clears backend session + Redux state
+-   Password reset & email verification supported
 
-New users complete a multi-step registration process:
+All token handling occurs server-side.
 
-1. Submit email to receive a one-time password (OTP)
-2. Verify OTP
-3. Complete account registration
 
-All OTP validation, security checks, and account creation logic are handled exclusively by the backend.
 
-### Key characteristics  
+# Notes Management
 
-- Access and refresh tokens are stored in **HTTP-only cookies**
-- No tokens are stored in localStorage, sessionStorage, or Redux
-- Redux stores only:
-    - Authenticated user identity
-    - Authentication status
-- A persistent `deviceId` is generated client-side to support secure multi-device sessions
+-   Create new notes
+-   Edit existing notes
+-   Delete notes
+-   Organized note board view
+-   State managed via Redux slice
 
-### Session lifecycle
 
-1. On application load, authentication state is restored via `/auth/me`
-2. Protected routes are guarded using layout-based access control
-3. Axios interceptors automatically attempt token refresh on `401` responses from protected endpoints
-4. Requests are retried **once** after a successful refresh to prevent loops
 
-## Routing & Access Control
+# Environment Variables
 
-Routing is layout-driven, not page-driven.
+Required:
 
-```bash
-/login, /register, /register-email, /verify-email, /create-account
- └── PublicLayout
+VITE_API_BASE_URL
 
-/board
- └── AuthLayout (protected)
-     └── BoardPage
-```
+Must match backend CORS configuration.
 
-## Design decisions
 
-- Public and authenticated routes are structurally separated
-- Auth checks live in layouts, not inside pages
-- Pages remain focused on rendering and interaction logic
-- Route-level lazy loading improves performance
 
-## Features
+# Development
 
-- Login / register / logout flow
-- Protected routes using layout guards
-- Notes CRUD operations
-- Pagination support
-- Pin / unpin notes
-- Notes sorted by:
-	1. Pinned notes first
-	2. Most recently updated
-- Reusable form system
-- Centralized toast notifications
+npm install npm run dev
 
-## Demo Account (For Reviewers)
+Runs on Vite development server.
 
-To simplify evaluation, a demo account is provided:
 
-- **Email:** notes-app-1.monetary836@aleeas.com
+
+# License
+
+MIT License
+
+# Note
+
+Dummy data used for demo purpose. 
+- **Email:** demo.user1.chariot057@aleeas.com 
 - **Password:** Demo@1234
-
-⚠️ Important
-
-- All notes are fictional
-- Demo data uses fictional characters and placeholders
-- No real user data is stored or displayed
-- Demo environment may reset periodically
-
-Demo credentials are provided only for UI and UX evaluation.
-
-## Project Structure
-
-```bash
-src
-├── api
-│   └── axios.js
-├── app
-│   ├── features
-│   │   ├── auth
-│   │   │   └── authSlice.js
-│   │   └── notes
-│   │       └── noteSlice.js
-│   ├── logoutHandler.js
-│   └── store.js
-├── App.css
-├── App.jsx
-├── assets
-│   ├── notepad-svgrepo-com.svg
-│   └── react.svg
-├── components
-│   ├── auth
-│   │   ├── AuthInitializer.jsx
-│   │   ├── CreateUserAccountForm.jsx
-│   │   ├── index.js
-│   │   ├── LoginForm.jsx
-│   │   ├── LogoutButton.jsx
-│   │   ├── RegisterEmailForm.jsx
-│   │   └── VerifyEmailForm.jsx
-│   │
-│   ├── common
-│   │   └── PageLoader.jsx
-│   ├── form
-│   │   ├── CustomForm.jsx
-│   │   ├── index.js
-│   │   ├── InputCheckbox.jsx
-│   │   ├── InputFile.jsx
-│   │   ├── InputSelect.jsx
-│   │   ├── InputText.jsx
-│   │   ├── InputTextarea.jsx
-│   │   └── SubmitButton.jsx
-│   ├── navbar
-│   │   └── NavbarComponent.jsx
-│   └── notes
-│       ├── AddNote.jsx
-│       ├── index.js
-│       ├── NoteColumn.jsx
-│       ├── NoteDeleteModal.jsx
-│       ├── NoteEditForm.jsx
-│       └── NoteHeader.jsx
-├── config
-│   └── toast.config.js
-├── index.css
-├── layout
-│   ├── AppLayout.jsx
-│   ├── AuthLayout.jsx
-│   └── PublicLayout.jsx
-├── main.jsx
-├── middleware
-│   └── errorMiddleware.js
-├── pages
-│   ├── auth
-│   │   ├── CreateUserAccounPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   ├── RegisterEmailPage.jsx
-│   │   ├── VerifyEmailPage.jsx
-│   ├── board
-│   │   └── BoardPage.jsx
-│   └── NotFound.jsx
-├── router
-│   └── router.jsx
-└── utils
-    ├── asyncThunkWrapper.js
-    ├── BackButton.jsx
-    ├── deviceId.js
-    ├── notify.js
-    
-```
-
-## Environment Configuration
-
-Create a local environment file:
-
-```bash
-cp .env.example .env
-```
-
-### Required variable:
-
-- VITE_API_URL — backend API base URL
-
-No secrets are stored in the frontend.
-
-## Backend Integration
-
-This frontend communicates with a separately deployed backend API.  
-
-- Backend Repository: https://github.com/vipulsawant8/notes-app-backend
-- Backend Deployment: Render
-- Auth Strategy: Cookie-based authentication with refresh token rotation
-- Session Restoration: `/auth/me`
-- Device Tracking: Client-generated `deviceId`
-
-## License
-
-This project is licensed under the MIT License.
-
-## Final note
-
-This frontend is designed for portfolio demonstration and technical evaluation.
-It is not intended for real user data or production use.
