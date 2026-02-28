@@ -29,6 +29,12 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 	return;
 });
 
+export const forgotPassword = createAsyncThunk('auth/forgotPassword', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/forgot-password', userData), thunkAPI));
+
+export const resetPassword = createAsyncThunk('auth/resetPassword', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/reset-password', userData), thunkAPI));
+
+export const changePassword = createAsyncThunk('auth/changePassword', (userData, thunkAPI) => asyncThunkWrapper(() => API.post('/auth/change-password', userData), thunkAPI));
+
 const authSlice = createSlice({
 
 	name: "auth",
@@ -127,6 +133,45 @@ const authSlice = createSlice({
 
 			state.user = null;
 			state.error = null;
+		})
+		.addCase(forgotPassword.pending, (state, action) => {
+
+			state.loading = true;
+			state.error = null;
+		})
+		.addCase(forgotPassword.fulfilled, (state, action) => {
+
+			state.loading = false;
+			state.error = null;
+		})
+		.addCase(forgotPassword.rejected, (state, action) => {
+
+			state.loading = false;
+			state.error = action.payload.message;
+		})
+		.addCase(resetPassword.pending, (state, action) => {
+
+			state.loading = true;
+			state.error = null;
+		})
+		.addCase(resetPassword.fulfilled, (state, action) => {
+
+			state.loading = false;
+			state.error = null;
+		})
+		.addCase(resetPassword.rejected, (state, action) => {
+
+			state.loading = false;
+			state.error = action.payload.message;
+		})
+		.addCase(changePassword.pending, (state, action) => {
+			state.error = null;
+		})
+		.addCase(changePassword.fulfilled, (state, action) => {
+			state.error = null;
+		})
+		.addCase(changePassword.rejected, (state, action) => {
+			state.error = action.payload.message;
 		})
 	}
 });
