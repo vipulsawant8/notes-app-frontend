@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "@/app/features/auth/authSlice.js";
 import { Button } from "react-bootstrap";
 import notify from "../../utils/notify";
-import { clearNotes } from "../../app/features/notes/noteSlice";
 
 const LogoutButton = () => {
 
@@ -13,7 +12,6 @@ const LogoutButton = () => {
 		try {
 			
 			const logout = await dispatch(logoutUser()).unwrap();
-			await dispatch(clearNotes({}));
 			const msg = "Logged-out Successfully";
 			notify.success(msg);
 		} catch (error) {

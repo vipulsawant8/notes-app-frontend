@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 import AppLayout from "@/layout/AppLayout.jsx";
@@ -11,6 +11,9 @@ const LoginPage = lazy(() => import('@/pages/auth/LoginPage.jsx'));
 
 const VerifyEmailPage = lazy(() => import('@/pages/auth/VerifyEmailPage.jsx'));
 const CreateUserAccountPage = lazy(() => import('@/pages/auth/CreateUserAccountPage.jsx'));
+const ForgotPasswordPage = lazy(() => import('@/pages/auth/ForgotPasswordPage.jsx'));
+const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage.jsx'));
+const ChangePasswordPage = lazy(() => import('@/pages/auth/ChangePasswordPage.jsx'));
 
 const BoardPage = lazy(() => import('@/pages/board/BoardPage.jsx'));
 
@@ -39,6 +42,14 @@ const router = createBrowserRouter([
 					{
 						path: "create-account",
 						element: <Suspense fallback={<PageLoader />}> <CreateUserAccountPage /> </Suspense>
+					},
+					{
+						path: "forgot-password",
+						element: <Suspense fallback={<PageLoader />}> <ForgotPasswordPage /> </Suspense>
+					},
+					{
+						path: "reset-password",
+						element: <Suspense fallback={<PageLoader />}> <ResetPasswordPage /> </Suspense>
 					}
 				]
 			},
@@ -48,6 +59,10 @@ const router = createBrowserRouter([
 					{
 						path: 'board',
 						element: <Suspense fallback={<PageLoader />}> <BoardPage /> </Suspense>
+					},
+					{
+						path: "change-password",
+						element: <Suspense fallback={<PageLoader />}> <ChangePasswordPage /> </Suspense>
 					}
 				]
 			},

@@ -49,6 +49,7 @@ const LoginPage = () => {
 								onSubmit={handleLogin}
 								onError={handleError}
 								loading={loading} />
+								<Link to={'/forgot-password'}>forgot password?</Link>
 							<div className="mt-4"> New user? click <Link to={'/create-account'}> here </Link> to register.</div>
 						</CardBody>
 					</Card>
