@@ -33,7 +33,7 @@ const AddNote = ({ show, onHide, ref }) => {
 	
 		try {
 			const result = await dispatch(createNote(data)).unwrap();
-			if (import.meta.env.DEV) console.log('result :', result);
+			if (import.meta.env.DEV) console.log('AddNote result :', result);
 			const msg = result.message || `"${data.title}" was added`;
 			notify.success(msg);
 

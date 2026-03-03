@@ -19,7 +19,6 @@ const CreateUserAccountPage = () => {
 			try {
 				const res = await dispatch(createUserAccount(data)).unwrap();
 				notify.success(res.message);
-				console.log("formRef: ", formRef);
 				formRef.current.resetForm();
 			} catch (error) {
 				
